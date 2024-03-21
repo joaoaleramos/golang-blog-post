@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"blog-post/internal/server"
+	server "blog-post/internal/interface/api/rest"
 	"io"
 	"net/http"
 	"net/http/httptest"

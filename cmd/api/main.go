@@ -1,15 +1,19 @@
 package main
 
 import (
-	"blog-post/internal/server"
+	"blog-post/internal/infrastructure/db/postgres"
+	server "blog-post/internal/interface/api/rest"
 	"fmt"
 )
 
 func main() {
+	db, err := postgres.GetDBInstance()
+	if err != nil {
+		panic(err)
+	}
+	server := server.NewServer(db)
 
-	server := server.NewServer()
-
-	err := server.ListenAndServe()
+	err = server.ListenAndServe()
 	if err != nil {
 		panic(fmt.Sprintf("cannot start server: %s", err))
 	}

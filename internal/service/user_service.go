@@ -13,16 +13,11 @@ func NewUserService(userRepository repository.UserRepository) *UserService {
 	return &UserService{userRepository: userRepository}
 }
 
-func (s *UserService) CreateUser(name string, email string, password string) (entity.User, error) {
-	user := entity.NewUser(
-		name,
-		email,
-		password,
-	)
+func (s *UserService) CreateUser(user *entity.User) error {
 	if err := s.userRepository.Create(user); err != nil {
-		return entity.User{}, err
+		return err
 	}
-	return *user, nil
+	return nil
 
 }
 
