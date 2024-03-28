@@ -3,6 +3,8 @@ package service
 import (
 	"blog-post/internal/domain/entity"
 	"blog-post/internal/domain/repository"
+
+	"github.com/google/uuid"
 )
 
 type UserService struct {
@@ -14,12 +16,26 @@ func NewUserService(userRepository repository.UserRepository) *UserService {
 }
 
 func (s *UserService) CreateUser(user *entity.User) error {
-	if err := s.userRepository.Create(user); err != nil {
+	if err := s.userRepository.CreateUser(user); err != nil {
 		return err
 	}
 	return nil
 
 }
 
-// TODO: finish method
-// func (s *UserService) UpdateUser()
+func (s *UserService) GetUserByID(user_id uuid.UUID) (*entity.User, error) {
+	user, err := s.userRepository.GetUserByID(user_id)
+	if err != nil {
+		return nil, err
+
+	}
+	return user, nil
+}
+
+func (s *UserService) GetAllUsers() ([]*entity.User, error) {
+	users, err := s.userRepository.GetAllUsers()
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}

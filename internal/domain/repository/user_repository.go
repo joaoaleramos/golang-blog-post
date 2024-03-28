@@ -7,9 +7,9 @@ import (
 )
 
 type UserRepository interface {
-	Create(user *entity.User) error
-	GetByUserID(id uuid.UUID) (*entity.User, error)
-	GetAll() ([]*entity.User, error)
-	Update(user *entity.User) error
-	Delete(id uuid.UUID) error
+	CreateUser(user *entity.User) error
+	GetUserByID(user_id uuid.UUID) (*entity.User, error)
+	GetAllUsers() ([]*entity.User, error)
+	UpdateUser(user *entity.User) error
+	DeleteUser(user_id uuid.UUID) error
 }

@@ -1,4 +1,4 @@
-package server
+package rest
 
 import (
 	"blog-post/internal/domain/repository"

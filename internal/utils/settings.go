@@ -3,9 +3,7 @@ package utils
 import (
 	"os"
 
-	"log"
-
-	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 type Settings struct {
@@ -18,10 +16,6 @@ type Settings struct {
 }
 
 func NewSettings() *Settings {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 	return &Settings{
 		DbUser:     os.Getenv("DB_USERNAME"),
 		DbPassword: os.Getenv("DB_PASSWORD"),
