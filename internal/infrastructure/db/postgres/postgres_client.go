@@ -23,7 +23,9 @@ func GetDBInstance() (*sqlx.DB, error) {
 		if err != nil {
 			panic(err) // or handle the error gracefully
 		}
-		dbInstance = db
+		db.SetMaxIdleConns(10)
+		db.SetMaxOpenConns(100)
+
 	})
 
 	return dbInstance, nil
