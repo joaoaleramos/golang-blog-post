@@ -18,7 +18,7 @@ func (s *Server) UserRoutes(apiRouter *mux.Router) {
 
 	// Define user routes with the appropriate paths
 	userRouter.HandleFunc("", s.CreateUser).Methods("POST")
-	userRouter.HandleFunc("/{id}", s.GetUserById).Methods("GET")
+	userRouter.HandleFunc("/{userID}", s.GetUserById).Methods("GET")
 	userRouter.HandleFunc("", s.GetAllUsers).Methods("GET")
 }
 

@@ -8,9 +8,9 @@ import (
 
 type PostRepository interface {
 	Create(user *entity.Post) (*entity.Post, error)
-	GetPostByID(id uuid.UUID) (*entity.Post, error)
-	GetPostsByUserID(user *entity.User) ([]*entity.Post, error)
+	GetPostByID(postID uuid.UUID) (*entity.Post, error)
+	GetPostsByUserID(userID uuid.UUID) ([]*entity.Post, error)
 	GetAll() ([]*entity.Post, error)
-	Update(Post *entity.Post) error
-	Delete(id uuid.UUID) error
+	Update(post *entity.Post) error
+	Delete(postID uuid.UUID) error
 }

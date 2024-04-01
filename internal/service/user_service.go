@@ -23,8 +23,8 @@ func (s *UserService) CreateUser(user *entity.User) error {
 
 }
 
-func (s *UserService) GetUserByID(user_id uuid.UUID) (*entity.User, error) {
-	user, err := s.userRepository.GetUserByID(user_id)
+func (s *UserService) GetUserByID(userID uuid.UUID) (*entity.User, error) {
+	user, err := s.userRepository.GetUserByID(userID)
 	if err != nil {
 		return nil, err
 

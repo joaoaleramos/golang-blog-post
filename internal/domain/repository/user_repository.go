@@ -8,8 +8,8 @@ import (
 
 type UserRepository interface {
 	CreateUser(user *entity.User) error
-	GetUserByID(user_id uuid.UUID) (*entity.User, error)
+	GetUserByID(userID uuid.UUID) (*entity.User, error)
 	GetAllUsers() ([]*entity.User, error)
 	UpdateUser(user *entity.User) error
-	DeleteUser(user_id uuid.UUID) error
+	DeleteUser(userID uuid.UUID) error
 }

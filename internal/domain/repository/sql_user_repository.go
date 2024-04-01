@@ -25,12 +25,12 @@ func (r *SQLUserRepository) CreateUser(user *entity.User) error {
 	return nil
 }
 
-func (r *SQLUserRepository) GetUserByID(id uuid.UUID) (*entity.User, error) {
+func (r *SQLUserRepository) GetUserByID(userID uuid.UUID) (*entity.User, error) {
 	// Define a user struct to store the result
 	var user entity.User
 
 	// Execute the query to fetch the user by ID
-	err := r.DB.Get(&user, "SELECT id, name, email, password FROM users WHERE id = $1", id)
+	err := r.DB.Get(&user, "SELECT id, name, email, password FROM users WHERE id = $1", userID)
 	if err != nil {
 		return nil, err
 	}
@@ -40,14 +40,17 @@ func (r *SQLUserRepository) GetUserByID(id uuid.UUID) (*entity.User, error) {
 func (r *SQLUserRepository) GetAllUsers() ([]*entity.User, error) {
 	// Execute the query
 	var users []*entity.User
+	var user entity.User
+
 	rows, err := r.DB.Queryx("SELECT * FROM users")
 	if err != nil {
 		return nil, err
 	}
+
 	defer rows.Close()
 
 	for rows.Next() {
-		var user entity.User
+
 		if err := rows.StructScan(&user); err != nil {
 			log.Fatal("Error scanning user")
 			return nil, err

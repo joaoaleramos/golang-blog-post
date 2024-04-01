@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"blog-post/internal/utils"
+	"blog-post/internal/util"
 	"fmt"
 	"sync"
 
@@ -12,7 +12,7 @@ import (
 var (
 	dbInstance *sqlx.DB
 	once       sync.Once
-	settings   utils.DBConfig = *utils.LoadDBConfig()
+	settings   util.DBConfig = *util.LoadDBConfig()
 )
 
 // GetDBInstance returns a singleton instance of the database connection
