@@ -12,7 +12,7 @@ import (
 var (
 	dbInstance *sqlx.DB
 	once       sync.Once
-	settings   utils.Settings = *utils.NewSettings()
+	settings   utils.DBConfig = *utils.LoadDBConfig()
 )
 
 // GetDBInstance returns a singleton instance of the database connection

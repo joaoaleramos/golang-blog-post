@@ -6,7 +6,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
-type Settings struct {
+type DBConfig struct {
 	DbUser     string
 	DbPassword string
 	DbHost     string
@@ -15,8 +15,8 @@ type Settings struct {
 	DbSSLMode  string
 }
 
-func NewSettings() *Settings {
-	return &Settings{
+func LoadDBConfig() *DBConfig {
+	return &DBConfig{
 		DbUser:     os.Getenv("DB_USERNAME"),
 		DbPassword: os.Getenv("DB_PASSWORD"),
 		DbHost:     os.Getenv("DB_HOST"),
