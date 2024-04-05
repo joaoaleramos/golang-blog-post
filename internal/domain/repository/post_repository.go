@@ -7,10 +7,10 @@ import (
 )
 
 type PostRepository interface {
-	Create(user *entity.Post) (*entity.Post, error)
+	CreatePost(post *entity.Post) error
 	GetPostByID(postID uuid.UUID) (*entity.Post, error)
 	GetPostsByUserID(userID uuid.UUID) ([]*entity.Post, error)
-	GetAll() ([]*entity.Post, error)
-	Update(post *entity.Post) error
-	Delete(postID uuid.UUID) error
+	GetAllPosts() ([]*entity.Post, error)
+	UpdatePost(post *entity.Post) error
+	DeletePost(postID uuid.UUID) error
 }
