@@ -13,19 +13,25 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
+type Service interface{}
+
 type Server struct {
-	port    int
-	service *service.UserService
+	port        int
+	userService *service.UserService
+	postService *service.PostService
 }
 
 func NewServer(db *sqlx.DB) *http.Server {
 	sqlUserRepository := repository.NewSQLUserRepository(db)
+	sqlPostRepository := repository.NewSQLPostRepository(db)
 	userService := service.NewUserService(sqlUserRepository)
+	postService := service.NewPostService(sqlPostRepository)
 
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{
-		port:    port,
-		service: userService,
+		port:        port,
+		userService: userService,
+		postService: postService,
 	}
 
 	// Declare Server config

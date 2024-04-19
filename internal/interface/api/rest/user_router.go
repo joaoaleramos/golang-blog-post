@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func (s *Server) UserRoutes(apiRouter *mux.Router) {
+func (s *Server) UserRouter(apiRouter *mux.Router) {
 	// Create a subrouter for user routes
 	userRouter := apiRouter.PathPrefix("/users").Subrouter()
 
@@ -31,7 +31,7 @@ func (s *Server) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	user := entity.NewUser(userRequest.Name, userRequest.Email, userRequest.Password)
 	// Call the Create method of SQLUserRepository to store the user in the database
-	if err := s.service.CreateUser(user); err != nil {
+	if err := s.userService.CreateUser(user); err != nil {
 		log.Fatalf("Failed to create user : %v", err)
 		http.Error(w, "Failed to create user, err:", http.StatusInternalServerError)
 		return
@@ -50,7 +50,7 @@ func (s *Server) GetUserById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := s.service.GetUserByID(userID)
+	user, err := s.userService.GetUserByID(userID)
 	if err != nil {
 		log.Fatalf("Failed to get user by ID: %v", err)
 		http.Error(w, fmt.Sprintf("Failed to get user by ID: %v", err), http.StatusInternalServerError)
@@ -63,7 +63,7 @@ func (s *Server) GetUserById(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	users, err := s.service.GetAllUsers()
+	users, err := s.userService.GetAllUsers()
 	if err != nil {
 		log.Fatalf("Failed to get all users: %v", err)
 	}

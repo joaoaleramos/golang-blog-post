@@ -14,7 +14,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 	apiRouter := mainRouter.PathPrefix("/api").Subrouter()
 
 	// Register user routes
-	s.UserRoutes(apiRouter) // Modify the existing router instead of creating a new one
+	s.UserRouter(apiRouter)
+
+	// Register post routes
+	s.PostRouter(apiRouter)
 
 	return mainRouter
 }
