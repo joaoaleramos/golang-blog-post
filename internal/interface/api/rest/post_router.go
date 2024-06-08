@@ -4,9 +4,10 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
 )
 
-func (s *Server) PostRouter(apiRouter *mux.Router) {
+func PostRouter(apiRouter *mux.Router, db *sqlx.DB) {
 
 	postRouter := apiRouter.PathPrefix("/posts").Subrouter()
 

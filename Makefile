@@ -3,14 +3,30 @@
 # Build the application
 all: build
 
+run: docker air
+
+
 build:
 	@echo "Building..."
-	
+	@templ generate
 	@go build -o main cmd/api/main.go
 
+# Generate templ
+templ: 
+	@templ generate
+	
+# Run Air
+air: 
+	@echo "Application is running..."
+	@air
 # Run the application
-run:
-	@go run cmd/api/main.go
+
+
+
+
+# Run docker compose
+docker:
+	@docker compose up -d 
 
 # Test the application
 test:

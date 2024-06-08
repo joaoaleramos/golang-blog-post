@@ -3,8 +3,6 @@ package repository
 import (
 	"blog-post/internal/domain/entity"
 
-	"log"
-
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 )
@@ -14,6 +12,9 @@ type SQLUserRepository struct {
 }
 
 func NewSQLUserRepository(db *sqlx.DB) *SQLUserRepository {
+	if db == nil {
+		panic("Database connection is nil")
+	}
 	return &SQLUserRepository{DB: db}
 }
 
@@ -39,20 +40,16 @@ func (r *SQLUserRepository) GetUserByID(userID uuid.UUID) (*entity.User, error) 
 
 func (r *SQLUserRepository) GetAllUsers() ([]*entity.User, error) {
 	// Execute the query
-	var users []*entity.User
-	var user entity.User
-
 	rows, err := r.DB.Queryx("SELECT * FROM users")
 	if err != nil {
 		return nil, err
 	}
-
 	defer rows.Close()
 
+	var users []*entity.User
 	for rows.Next() {
-
+		var user entity.User // Create a new user variable for each iteration
 		if err := rows.StructScan(&user); err != nil {
-			log.Fatal("Error scanning user")
 			return nil, err
 		}
 		users = append(users, &user)
@@ -60,7 +57,6 @@ func (r *SQLUserRepository) GetAllUsers() ([]*entity.User, error) {
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
-
 	return users, nil
 }
 

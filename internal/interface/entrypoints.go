@@ -1,12 +1,14 @@
-package rest
+package server
 
 import (
+	"blog-post/internal/interface/api/rest"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
 )
 
-func (s *Server) RegisterRoutes() http.Handler {
+func (s *Server) RegisterRoutes(db *sqlx.DB) http.Handler {
 	// Create a new Gorilla Mux router
 	mainRouter := mux.NewRouter()
 
@@ -14,10 +16,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 	apiRouter := mainRouter.PathPrefix("/api").Subrouter()
 
 	// Register user routes
-	s.UserRouter(apiRouter)
+	rest.UserRouter(apiRouter, db)
 
 	// Register post routes
-	s.PostRouter(apiRouter)
+	rest.PostRouter(apiRouter, db)
 
 	return mainRouter
 }
